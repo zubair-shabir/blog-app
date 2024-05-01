@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./App.css";
-
-import conf from "./conf/config";
 import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "./components";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [loading, setLoading] = useState(true);
-
   const dispatch = useDispatch();
-
+  console.log(loading);
+  // console.log(authService);
   useEffect(() => {
     authService
       .getCurrentUser()
@@ -22,20 +21,24 @@ function App() {
           dispatch(logout());
         }
       })
+      .catch((e) => console.log(e))
       .finally(() => setLoading(false));
   }, []);
 
   return !loading ? (
-    <>
-      <div className="min-h-sc flex flex-wrap content-between bg-gray-400">
-        <div className="w-full block">
-          <Header />
-          <main>{/* <Outlet /> */}</main>
-          <Footer />
-        </div>
+    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+      <div className="w-full block">
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+        {/* <h1>This loads</h1> */}
       </div>
-    </>
-  ) : null;
+    </div>
+  ) : (
+    <>Nothing Loads Here</>
+  );
 }
 
 export default App;

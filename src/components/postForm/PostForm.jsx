@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect } from "react";
-
+import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, Select, RTE } from "../index";
+import Button from "../Button";
+import Input from "../Input";
+import RTE from "../RTE";
+import Select from "../Select";
 import appwriteService from "../../appwrite/config";
-
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const PostForm = ({ post }) => {
+export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -19,13 +20,12 @@ const PostForm = ({ post }) => {
     });
 
   const navigate = useNavigate();
-
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
-        ? appwriteService.uploadFile(data.image[0])
+        ? await appwriteService.uploadFile(data.image[0])
         : null;
 
       if (file) {
@@ -33,17 +33,13 @@ const PostForm = ({ post }) => {
       }
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featured: file ? file.$id : undefined,
+        featuredImage: file ? file.$id : undefined,
       });
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      const file =
-        data.image && data.image[0]
-          ? appwriteService.uploadFile(data.image[0])
-          : null;
-
+      const file = await appwriteService.uploadFile(data.image[0]);
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
@@ -51,6 +47,7 @@ const PostForm = ({ post }) => {
           ...data,
           userId: userData.$id,
         });
+
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
@@ -58,35 +55,27 @@ const PostForm = ({ post }) => {
     }
   };
 
-  const slugTranform = useCallback((value) => {
-    if (value && typeof value === "string") {
+  const slugTransform = useCallback((value) => {
+    if (value && typeof value === "string")
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
-
-      return "";
-    }
   }, []);
 
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
+  React.useEffect(() => {
+    watch((value, { name }) => {
       if (name === "title") {
-        setValue("slug", slugTranform(value.title, { shouldValidate: true }));
+        setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [watch, slugTranform, setValue]);
-
+  }, [watch, slugTransform, setValue]);
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
         <Input
-          label="Title :"
+          label="Title"
           placeholder="Title"
           className="mb-4"
           {...register("title", { required: true })}
@@ -97,24 +86,24 @@ const PostForm = ({ post }) => {
           className="mb-4"
           {...register("slug", { required: true })}
           onInput={(e) => {
-            setValue("slug", slugTranform(e.currentTarget.value), {
+            setValue("slug", slugTransform(e.currentTarget.value), {
               shouldValidate: true,
             });
           }}
         />
         <RTE
-          label="Content :"
+          label="Content: "
           name="content"
           control={control}
           defaultValue={getValues("content")}
         />
       </div>
-      <div className="w-1/3 px-2">
+      <div className="1/3 px-2">
         <Input
-          label="Featured Image :"
+          label="Featured Image"
           type="file"
           className="mb-4"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
+          accept="image/png, image/jpg, image/jpeg"
           {...register("image", { required: !post })}
         />
         {post && (
@@ -142,6 +131,4 @@ const PostForm = ({ post }) => {
       </div>
     </form>
   );
-};
-
-export default PostForm;
+}

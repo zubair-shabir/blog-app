@@ -10,13 +10,13 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  const { error, setError } = useState("");
+  const [error, setError] = useState("");
 
   const create = async (data) => {
     setError("");
     try {
-      const data = await authService.createAccount(data);
-      if (data) {
+      const userData = await authService.createAccount(data);
+      if (userData) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(login(userData));
         navigate("/");
@@ -47,7 +47,9 @@ const Signup = () => {
             Sign In
           </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+        {error && (
+          <p className="text-red-600 mt-8 text-center">{error.message}</p>
+        )}
 
         <form onSubmit={handleSubmit(create)}>
           <div className="space-y-5">

@@ -2,19 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import store from "./store/store.js";
 import { Provider } from "react-redux";
+import store from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import { AuthLayout, Login } from "./components/index.js";
+import { Login } from "./components/index.js";
+
+import Protected from "./components/AuthLayout.jsx";
 
 import AddPost from "./pages/AddPost";
 import Signup from "./pages/Signup";
 import EditPost from "./pages/EditPost";
 
-import Post from "./pages/Post.jsx";
+import Post from "./pages/Post";
 
 import AllPosts from "./pages/AllPosts";
+console.log(Protected);
 
 const router = createBrowserRouter([
   {
@@ -28,44 +31,44 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <AuthLayout authentication={false}>
+          <Protected authentication={false}>
             <Login />
-          </AuthLayout>
+          </Protected>
         ),
       },
       {
         path: "/signup",
         element: (
-          <AuthLayout authentication={false}>
+          <Protected authentication={false}>
             <Signup />
-          </AuthLayout>
+          </Protected>
         ),
       },
       {
         path: "/all-posts",
         element: (
-          <AuthLayout authentication>
-            {" "}
+          <Protected authentication>
+       
             <AllPosts />
-          </AuthLayout>
+          </Protected>
         ),
       },
       {
         path: "/add-post",
         element: (
-          <AuthLayout authentication>
-            {" "}
+          <Protected authentication>
+       
             <AddPost />
-          </AuthLayout>
+          </Protected>
         ),
       },
       {
         path: "/edit-post/:slug",
         element: (
-          <AuthLayout authentication>
-            {" "}
+          <Protected authentication>
+
             <EditPost />
-          </AuthLayout>
+          </Protected>
         ),
       },
       {

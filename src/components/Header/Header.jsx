@@ -4,9 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const authStatus = useSelector((state) => {
-    return state.auth.status;
-  });
+  const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
 
   const navItems = [
@@ -37,7 +35,7 @@ const Header = () => {
     },
   ];
   return (
-    <Header className="py-3 shadow bg-gray-500">
+    <header className="py-3 shadow bg-gray-500">
       <Container>
         <nav className="flex">
           <div className="mr-4">
@@ -66,7 +64,7 @@ const Header = () => {
           </ul>
         </nav>
       </Container>
-    </Header>
+    </header>
   );
 };
 
