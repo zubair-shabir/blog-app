@@ -15,6 +15,7 @@ export default function PostForm({ post }) {
         title: post?.title || "",
         slug: post?.slug || "",
         content: post?.content || "",
+        category: post?.category || "",
         status: post?.status || "active",
       },
     });
@@ -23,6 +24,7 @@ export default function PostForm({ post }) {
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
+    console.log("test 2");
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
@@ -43,10 +45,13 @@ export default function PostForm({ post }) {
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
+        console.log("test 3");
+
         const dbPost = await appwriteService.createPost({
           ...data,
           userId: userData.$id,
         });
+        console.log("test 4");
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
@@ -90,6 +95,13 @@ export default function PostForm({ post }) {
               shouldValidate: true,
             });
           }}
+        />
+        <Input
+          label="Category"
+          placeholder="Category"
+          className="mb-4"
+          {...register("category", { required: true })}
+          onKeyUp={() => console.log(getValues("category"))}
         />
         <RTE
           label="Content: "
