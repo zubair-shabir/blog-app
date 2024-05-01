@@ -9,8 +9,7 @@ import { Outlet } from "react-router-dom";
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  console.log(loading);
-  // console.log(authService);
+
   useEffect(() => {
     authService
       .getCurrentUser()

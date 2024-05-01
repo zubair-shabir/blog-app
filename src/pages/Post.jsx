@@ -39,7 +39,7 @@ export default function Post() {
           <img
             src={appwriteService.getFilePreview(post.featuredImage)}
             alt={post.title}
-            className="rounded-xl"
+            className="rounded-xl max-w-[600px] "
           />
 
           {isAuthor && (
@@ -58,7 +58,9 @@ export default function Post() {
         <div className="w-full mb-6">
           <h1 className="text-2xl font-bold">{post.title}</h1>
         </div>
-        <span className="bg-gray-500 px-3 py-1 rounded-xl my-4 ">#{post.category}</span>
+        <span className="bg-gray-500 px-3 py-1 rounded-xl my-4 ">
+          #{post.category}
+        </span>
         <div className="browser-css">{parse(post.content)}</div>
       </Container>
     </div>

@@ -23,7 +23,7 @@ export class Service {
     category,
     userId,
   }) {
-    console.log("test config");
+
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,

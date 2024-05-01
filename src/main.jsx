@@ -17,7 +17,7 @@ import EditPost from "./pages/EditPost";
 import Post from "./pages/Post";
 
 import AllPosts from "./pages/AllPosts";
-console.log(Protected);
+
 
 const router = createBrowserRouter([
   {

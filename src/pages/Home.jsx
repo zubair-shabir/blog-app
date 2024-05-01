@@ -18,7 +18,7 @@ const Home = () => {
         <div className="flex flex-wrap">
           <div className="p-2 w-full">
             <h1 className="text-2xl font-bold hover:text-gray-500">
-              Login to Read Post
+              No Posts Availabe to Read to Read Post
             </h1>
           </div>
         </div>
@@ -26,9 +26,9 @@ const Home = () => {
     );
   }
   return (
-    <div className="w-full py-8">
+    <div className="w-full py-8 flex justify-evenly flex-wrap">
       {posts.map((post) => (
-        <div className="p-2 w-1/2" key={post.$id}>
+        <div className="p-2  " key={post.$id}>
           <PostCard {...post} />
         </div>
       ))}

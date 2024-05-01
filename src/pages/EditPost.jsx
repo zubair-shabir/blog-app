@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, PostCard, PostForm } from "../components";
+import { Container, PostCard, EditForm } from "../components";
 import appwriteService from "../appwrite/config";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -12,6 +12,8 @@ const EditPost = () => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
         if (post) {
+         
+
           SetPost(post);
         }
       });
@@ -22,9 +24,7 @@ const EditPost = () => {
 
   return post ? (
     <div className="py-8">
-      <Container>
-        <PostCard post={post} />
-      </Container>
+      <Container><EditForm {...post} /></Container>
     </div>
   ) : null;
 };
