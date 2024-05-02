@@ -11,15 +11,23 @@ const AllPosts = () => {
       }
     });
   }, []);
-  if (posts.length === 0) {
-    return <>Login to Read Posts</>;
+  if (posts && posts.length === 0) {
+    return (
+      <Container>
+        <div className="flex flex-wrap p-2 w-full min-h-[80vh] justify-center items-center">
+          <h1 className="text-2xl font-bold hover:text-gray-500">
+            No Posts Availabe to Read
+          </h1>
+        </div>
+      </Container>
+    );
   }
   return (
-    <div className="w-full py-8">
+    <div className="w-full py-8 flex justify-evenly flex-wrap">
       <Container>
         <div className="flex flex-wrap">
           {posts.map((post) => (
-            <div className="p-2 w-1/4" key={post.$id}>
+            <div className="p-2" key={post.$id}>
               <PostCard {...post} />
             </div>
           ))}
