@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function PostForm({ post }) {
-
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -25,7 +24,6 @@ export default function PostForm({ post }) {
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
-
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
@@ -47,12 +45,10 @@ export default function PostForm({ post }) {
         const fileId = file.$id;
         data.featuredImage = fileId;
 
-
         const dbPost = await appwriteService.createPost({
           ...data,
           userId: userData.$id,
         });
-  
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);

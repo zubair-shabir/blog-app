@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 
 const PostCard = ({ $id, title, featuredImage, content }) => {
+  if (title == null || content === null) return;
 
   return (
     <Link to={`/post/${$id}`}>
@@ -18,11 +19,14 @@ const PostCard = ({ $id, title, featuredImage, content }) => {
         <h2 className="text-xl font-bold">{title}</h2>
       </div> */}
       <div className="relative h-[400px] w-[300px] rounded-md">
-        <img
-          src={appwriteService.getFilePreview(featuredImage)}
-          alt="AirMax Pro"
-          className="z-0 h-full w-full rounded-md object-cover"
-        />
+        {featuredImage && (
+          <img
+            src={appwriteService.getFilePreview(featuredImage)}
+            alt="AirMax Pro"
+            className="z-0 h-full w-full rounded-md object-cover"
+          />
+        )}
+
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
         <div className="absolute bottom-4 left-4 text-left">
           <h1 className="text-lg font-semibold text-white">{title}</h1>

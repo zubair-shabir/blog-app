@@ -20,7 +20,6 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
               height: 500,
               menubar: true,
               plugins: [
-                "image",
                 "advlist",
                 "autolink",
                 "lists",
@@ -40,6 +39,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
                 "help",
                 "wordcount",
                 "anchor",
+                "autoresize",
               ],
               toolbar:
                 "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
@@ -53,5 +53,3 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
     </div>
   );
 }
-
-
