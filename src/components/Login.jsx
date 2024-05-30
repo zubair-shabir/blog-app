@@ -22,7 +22,9 @@ const Login = () => {
       if (session) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(authlogin(userData));
-        navigate("/");
+        setTimeout(() => {
+          navigate("/all-posts");
+        }, 500);
       }
     } catch (error) {
       setError(error.message);
@@ -74,6 +76,12 @@ const Login = () => {
                 {...register("password", {
                   required: true,
                 })}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSubmit(login)();
+                  }
+                }}
               />
               <button
                 onClick={(e) => {

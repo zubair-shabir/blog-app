@@ -80,6 +80,12 @@ const Signup = () => {
               {...register("password", {
                 required: true,
               })}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSubmit(create)();
+                }
+              }}
             />
             <Button type="submit" className="w-full">
               Create Account
