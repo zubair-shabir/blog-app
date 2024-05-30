@@ -6,7 +6,10 @@ import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth";
 import { useForm } from "react-hook-form";
 
+import { BiShow, BiHide } from "react-icons/bi";
+
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
@@ -63,14 +66,26 @@ const Login = () => {
                 },
               })}
             />
-            <Input
-              label="Password: "
-              type="password"
-              placeholder="Enter your password"
-              {...register("password", {
-                required: true,
-              })}
-            />
+            <div className="relative">
+              <Input
+                label="Password: "
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                {...register("password", {
+                  required: true,
+                })}
+              />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowPassword(!showPassword);
+                }}
+                className="absolute top-1/2 transform right-2 text-2xl focus-visible:outline-none"
+              >
+                {showPassword ? <BiHide /> : <BiShow />}
+              </button>
+            </div>
+
             <Button type="submit" className="w-full">
               Sign in
             </Button>
