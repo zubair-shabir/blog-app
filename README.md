@@ -1,7 +1,7 @@
 # Blog Web App
 
-Welcome to the Blog Web App! This project is a modern, full-featured blogging platform built using Vite, React, Tailwind CSS, and Appwrite. This README file will guide you through setting up and running the application on your local machine, as well as provide an overview of its features and architecture.
-updated Readme
+Welcome to the Blog Web App! This project is a modern, full-featured blogging platform built using Vite, React, Tailwind CSS, and Appwrite. 
+
 
 ## Features
 
