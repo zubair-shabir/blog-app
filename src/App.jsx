@@ -36,7 +36,15 @@ function App() {
       </div>
     </div>
   ) : (
-    <>Nothing Loads Here</>
+    <>
+      <div className="h-screen w-full flex items-center justify-center">
+        <div className="flex items-center justify-center space-x-2">
+          <div className="w-8 h-8 rounded-full animate-pulse bg-violet-400"></div>
+          <div className="w-8 h-8 rounded-full animate-pulse bg-violet-400"></div>
+          <div className="w-8 h-8 rounded-full animate-pulse bg-violet-400"></div>
+        </div>
+      </div>
+    </>
   );
 }
 
