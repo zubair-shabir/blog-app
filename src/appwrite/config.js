@@ -23,7 +23,6 @@ export class Service {
     category,
     userId,
   }) {
-
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,

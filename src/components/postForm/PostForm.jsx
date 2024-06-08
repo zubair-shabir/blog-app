@@ -20,6 +20,7 @@ export default function PostForm({ post }) {
       },
     });
 
+
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
@@ -73,15 +74,22 @@ export default function PostForm({ post }) {
       }
     });
   }, [watch, slugTransform, setValue]);
+
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
-        <Input
-          label="Title"
-          placeholder="Title"
-          className="mb-4"
-          {...register("title", { required: true })}
-        />
+        <div className="relative">
+          <span className="absolute right-0 top-0">
+            {watch("title").length}/36
+          </span>
+          <Input
+            label="Title"
+            placeholder="Title"
+            className="mb-4"
+            maxlength="36"
+            {...register("title", { required: true })}
+          />
+        </div>
         <Input
           label="Slug :"
           placeholder="Slug"
